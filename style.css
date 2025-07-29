@@ -1,0 +1,594 @@
+/* --- CSSカスタムプロパティ (変数) --- */
+:root {
+    /* ベースカラー */
+    --color-primary-bg: #708000;
+    --color-text-light: white;
+    --color-text-dark: black;
+    --color-header-light: #f0f0f0;
+    --color-header-dark: #e0e0e0;
+    --color-link: #6699ff;
+    --color-link-hover: #55bbff;
+    --color-info-box-bg: #739999;
+    --color-info-box-link: #0000EE;
+    --color-contact-info: #c0c0c0;
+    --color-delay-bg: rgba(0, 0, 0, 0.4);
+
+    /* 遅延情報の色 */
+    --color-delay-red: #ff4d4d;
+    --color-delay-green: #90ee90;
+    --color-delay-gray: #a0a0a0;
+
+    /* 路線図 */
+    --color-track-path: white;
+    --color-section-line: white;
+    --color-station-platform-stroke: white;
+    --color-station-platform-fill: deepskyblue;
+    --color-station-name: white;
+
+    /* 列車アイコン */
+    --color-train-border-default: #a0a0a0; /* この色は基本的に上書きされます */
+    --color-train-box-bg: white;
+    --color-train-info-text: black;
+    --color-train-delay-info-bg: rgba(255, 255, 255, 0.7); /* 遅延・両数・編成番号の背景色 */
+    --color-train-delay-text: red;
+    --color-train-cars-text: darkblue;
+    --color-train-formation-text: darkcyan;
+
+    /* ボタン */
+    --color-junction-btn-border: white;
+    --color-junction-btn-text: white;
+    --color-junction-btn-bg-default: rgba(0,0,0,0.5);
+
+    /* 路線のテーマカラー (train-boxの枠線色として使用) */
+    --line-color-26001: #da0442; /* 東横線 */
+    --line-color-26002: #009cd2; /* 目黒線 */
+    --line-color-26003: #20a288; /* 田園都市線 */
+    --line-color-26004: #f18c43; /* 大井町線 */
+    --line-color-26005: #ed86a7; /* 池上線 */
+    --line-color-26006: #ae0378; /* 多摩川線 */
+    --line-color-26007: #fcc70d; /* 世田谷線 */
+    --line-color-26009: #890d84; /* 新横浜線 */
+}
+
+/* --- 基本レイアウト --- */
+body {
+    background-color: var(--color-primary-bg);
+    color: var(--color-text-light);
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 100%;
+    padding: 1em;
+}
+
+.page-header {
+    text-align: center;
+}
+
+.header-title {
+    color: var(--color-header-light);
+    margin-bottom: 0.5em;
+}
+
+.header-message,
+.header-disclaimer {
+    text-align: center;
+    color: var(--color-header-dark);
+    font-size: 0.9em;
+    margin-bottom: 1em;
+}
+
+.header-links {
+    margin-bottom: 1em;
+}
+
+.button-link {
+    display: inline-block;
+    color: var(--color-text-light);
+    background-color: var(--color-link);
+    text-decoration: none;
+    padding: 0.5em 1em;
+    border: 1px solid var(--color-link);
+    border-radius: 8px;
+    transition: background-color 0.3s, transform 0.3s, opacity 0.3s, box-shadow 0.3s;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    font-weight: bold;
+}
+
+.button-link:hover {
+    background-color: var(--color-link-hover);
+    transform: translateY(-2px);
+    opacity: 0.9;
+    box-shadow: 3px 3px 8px rgba(0,0,0,0.4);
+}
+
+.info-box {
+    font-size: 10pt;
+    background-color: var(--color-info-box-bg);
+    color: var(--color-text-dark);
+    text-align: center;
+    padding: 0.5em;
+    margin-bottom: 1em;
+    border-radius: 8px;
+}
+
+.info-box a {
+    color: var(--color-info-box-link);
+    text-decoration: underline;
+}
+
+.contact-info {
+    text-align: center;
+    font-size: 8pt;
+    margin-bottom: 1em;
+    color: var(--color-contact-info);
+}
+
+.contact-info a {
+    color: lightblue;
+    text-decoration: none;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
+}
+
+/* --- 路線選択ボタン --- */
+.line-selector {
+    padding-bottom: 32px;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5em;
+}
+
+.line-selector button {
+    font-size: 150%;
+    color: var(--color-text-light);
+    border: none;
+    padding: 0.5em 1em;
+    margin: 0.2em;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: opacity 0.3s, transform 0.3s, box-shadow 0.3s;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+}
+
+.line-selector button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    opacity: 0.9;
+    box-shadow: 3px 3px 8px rgba(0,0,0,0.4);
+}
+
+.line-selector button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    box-shadow: none;
+}
+
+/* 各路線のカラー定義 */
+.line-26001-bg { background-color: var(--line-color-26001); }
+.line-26002-bg { background-color: var(--line-color-26002); }
+.line-26003-bg { background-color: var(--line-color-26003); }
+.line-26004-bg { background-color: var(--line-color-26004); }
+.line-26005-bg { background-color: var(--line-color-26005); }
+.line-26006-bg { background-color: var(--line-color-26006); }
+.line-26007-bg { background-color: var(--line-color-26007); }
+.line-26009-bg { background-color: var(--line-color-26009); }
+
+/* --- 遅延情報表示 --- */
+.delay-status-section {
+    text-align: center;
+    margin-top: 1em;
+    font-size: 1.2em;
+    color: var(--color-text-light);
+    background-color: var(--color-delay-bg);
+    padding: 1em;
+    border-radius: 8px;
+}
+
+.delay-info {
+    margin-bottom: 0.5em;
+}
+
+.delay-red {
+    color: var(--color-delay-red);
+    font-weight: bold;
+}
+
+.delay-green {
+    color: var(--color-delay-green);
+}
+
+.delay-gray {
+    color: var(--color-delay-gray);
+}
+
+/* 運行情報テキストのスタイル */
+.current-line-info {
+    margin-top: 0.8em;
+    font-size: 0.9em;
+    color: var(--color-header-dark);
+    white-space: pre-wrap;
+    text-align: left;
+    padding: 0.5em;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+/* --- 路線図・列車表示 --- */
+.main-map::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.map-section,
+.map-station {
+    position: relative;
+    height: 192px;
+    float: left;
+}
+.map-section { width: 64px; }
+.map-station { width: 192px; }
+
+.map-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.track-path {
+    stroke: var(--color-track-path);
+    stroke-width: 0.125;
+    fill: none;
+}
+
+.section-line {
+    stroke: var(--color-section-line);
+    stroke-width: 2;
+}
+
+.station-platform {
+    stroke: var(--color-station-platform-stroke);
+    fill: var(--color-station-platform-fill);
+    stroke-width: 1;
+}
+
+.station-name {
+    font-size: 16px;
+    font-weight: bold;
+    text-anchor: middle;
+    fill: var(--color-station-name);
+}
+
+.train-container,
+.station-track-container {
+    position: absolute;
+    left: 0;
+    width: 64px;
+    height: 0;
+    z-index: 2;
+}
+
+.station-track-container {
+    left: 64px;
+}
+
+.junction-links {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    z-index: 5;
+}
+
+.junction-btn {
+    border: 1px solid var(--color-junction-btn-border);
+    color: var(--color-junction-btn-text);
+    font-size: 10px;
+    padding: 1px 4px;
+    margin: 0 1px;
+    border-radius: 3px;
+    cursor: pointer;
+    opacity: 0.8;
+    background-color: var(--line-color);
+    transition: opacity 0.3s;
+}
+
+.junction-btn:hover {
+    opacity: 1;
+    font-weight: bold;
+}
+
+/* --- 列車アイコン --- */
+.train {
+    position: relative;
+    width: 150px; /* 遅延と両数を個別に配置するため、列車アイコン全体の幅をさらに広げる */
+    height: 24px;
+    top: -12px;
+}
+
+/* train の border-color が継承される際のデフォルト値 */
+.train {
+    border-color: var(--color-train-border-default);
+}
+
+/* train_line_idごとの枠線色 */
+.train.line-26001 { border-color: var(--line-color-26001); } /* 東横線 */
+.train.line-26002 { border-color: var(--line-color-26002); } /* 目黒線 */
+.train.line-26003 { border-color: var(--line-color-26003); } /* 田園都市線 */
+.train.line-26004 { border-color: var(--line-color-26004); } /* 大井町線 */
+.train.line-26005 { border-color: var(--line-color-26005); } /* 池上線 */
+.train.line-26006 { border-color: var(--line-color-26006); } /* 多摩川線 */
+.train.line-26007 { border-color: var(--line-color-26007); } /* 世田谷線 */
+.train.line-26009 { border-color: var(--line-color-26009); } /* 新横浜線 */
+
+
+.train-box {
+    position: absolute;
+    left: 2px;
+    top: -1.5px;
+    width: 56px;
+    height: 25px;
+    background-color: var(--color-train-box-bg);
+    border: solid 2px;
+    border-color: inherit; /* 親の.trainクラスから色を継承 */
+    font-size: 14px;
+    z-index: 4;
+}
+
+.train-direction-up,
+.train-direction-down {
+    position: absolute;
+    top: 0;
+    width: 8px;
+    height: 24px;
+    color: inherit;
+    z-index: 4;
+}
+
+.train-direction-up {
+    left: -6px;
+}
+
+.train-direction-down {
+    left: 62px;
+}
+
+.train-direction-svg {
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+}
+
+.train-info {
+    position: absolute;
+    font-size: 11px;
+    z-index: 6;
+    width: 52px;
+    height: 16px;
+    left: 6px;
+    top: 0px;
+}
+
+.train-opno {
+    text-align: left;
+    color: var(--color-train-info-text);
+}
+
+.train-dest {
+    top: 11px;
+    width: 58px;
+    left: 3px;
+    text-align: center;
+    color: var(--color-train-info-text);
+}
+/* 長い行き先テキスト用のスタイル */
+.train-dest-long {
+    font-size: 0.4em;
+    line-height: 1.2;
+}
+
+
+.train-kind {
+    text-align: right;
+}
+
+.train-kind > span {
+    display: inline-block;
+    height: 13px;
+    padding: 0 1.5px;
+}
+
+/* 遅延表示 */
+.train-delay {
+    position: absolute;
+    left: 68px;
+    top: -2px;
+    width: 30px; /* 1文字(例: +5)に合わせた幅 */
+    height: 12px;
+    background-color: var(--color-train-delay-info-bg); /* 灰色背景枠 */
+    color: var(--color-train-delay-text);
+    font-size: 11px;
+    font-weight: bold;
+    z-index: 3;
+    text-align: center; /* 中央揃え */
+    line-height: 12px; /* 垂直方向中央揃え */
+    border-radius: 3px;
+    padding: 0 2px;
+    box-sizing: border-box; /* paddingを含む幅の計算 */
+}
+
+/* 両数表示 - 遅延の右隣に配置 (8pxから5px左へ戻す) */
+.train-cars {
+    position: absolute;
+    left: calc(68px + 30px);
+    top: -2px; /* 遅延と同じtop位置 */
+    width: 30px; /* 幅 */
+    height: 12px;
+    background-color: var(--color-train-delay-info-bg); /* 灰色背景枠 */
+    color: var(--color-train-cars-text);
+    font-size: 11px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 12px; /* 垂直方向中央揃え */
+    z-index: 3;
+    border-radius: 3px;
+    padding: 0 2px;
+    box-sizing: border-box;
+}
+
+/* 編成番号表示 */
+.train-formation-number {
+    position: absolute;
+    left: 68px; /* 遅延・両数と同じX座標 */
+    top: 10px; /* 遅延・両数の下 */
+    width: 60px; /* 必要に応じて幅を調整 */
+    height: 14px;
+    background-color: var(--color-train-delay-info-bg);
+    color: var(--color-train-formation-text);
+    font-size: 11px;
+    z-index: 3;
+    text-align: center;
+    line-height: 14px;
+    border-radius: 3px;
+    padding: 0 2px;
+    box-sizing: border-box;
+}
+
+
+.train-link-wrapper {
+    position: absolute;
+    left: 2px;
+    top: -1.5px;
+    width: 60px;
+    height: 27px;
+    z-index: 7;
+}
+
+.train-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* --- レスポンシブデザイン (モバイルファーストへは未変更) --- */
+@media (max-width: 768px) {
+    .header-title {
+        font-size: 1.8em;
+    }
+    .header-message,
+    .header-disclaimer {
+        font-size: 0.8em;
+    }
+    .info-box {
+        font-size: 9pt;
+        padding: 0.6em;
+    }
+    .contact-info {
+        font-size: 7pt;
+    }
+
+    .line-selector button {
+        font-size: 0.9em;
+        padding: 0.6em 1em;
+    }
+
+    .map-section,
+    .map-station {
+        height: 160px;
+    }
+
+    .station-name {
+        font-size: 14px;
+    }
+
+    .train {
+        width: 110px; /* モバイルでの列車アイコンの幅を調整 */
+        height: 20px;
+        top: -10px;
+    }
+    .train-box {
+        width: 48px;
+        height: 20px;
+        font-size: 10px;
+    }
+    .train-direction-up {
+        left: -3px;
+        width: 8px;
+        height: 20px;
+    }
+    .train-direction-down {
+        left: 51px;
+        width: 8px;
+        height: 20px;
+    }
+    .train-info {
+        font-size: 8px;
+        width: 40px;
+        left: 4px;
+        top: 0px;
+        line-height: 1.0;
+    }
+    .train-opno {
+        text-align: left;
+        top: 1px;
+    }
+    .train-dest {
+        top: 10px;
+        width: 45px;
+        left: 3px;
+    }
+    .train-kind {
+        text-align: right;
+        top: 1px;
+    }
+    .train-kind > span {
+        height: 9px;
+        padding: 0 1px;
+    }
+
+    /* モバイルでの遅延・両数・編成番号の調整 */
+    .train-delay {
+        left: 55px;
+        width: 24px; /* モバイルの遅延幅 */
+        font-size: 6px;
+        top: -1px;
+        line-height: 10px;
+    }
+    .train-cars {
+        /* モバイル版も5px左に戻す */
+        left: calc(55px + 24px); /* 遅延(left:55 + width:25) から 0pxマージン */
+        width: 22px;
+        font-size: 6px;
+        top: -1px;
+        line-height: 10px;
+    }
+    .train-formation-number {
+        left: 55px;
+        top: 8px;
+        width: 45px;
+        height: 12px;
+        font-size: 7px;
+        line-height: 12px;
+    }
+
+    .train-link-wrapper {
+        width: 50px;
+        height: 20px;
+    }
+    .junction-links {
+        font-size: 7px;
+    }
+    .junction-btn {
+        font-size: 7px;
+        padding: 0px 1px;
+    }
+}

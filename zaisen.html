@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex,nofollow,noarchive">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>東急電鉄列車走行位置</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <header class="page-header">
+            <h1 class="header-title">東急電鉄在線位置</h1>
+            <p class="header-message">ダイヤ乱れ時は異なる行先が表示される場合があります。</p>
+            <p class="header-disclaimer">※目黒線の2000系車両は9000系として表示されます。正しい運用は他運用サイトをご確認ください。</p>
+            <!--<nav class="header-links">
+                <a href="formation/toyoko.html" class="button-link"><strong>編成番号対照表</strong></a>
+            </nav>--
+            <aside class="info-box">
+                他社線の在線はこちらから"<a href="/index.html">ホームページ</a>"
+            </aside>
+            <address class="contact-info">
+                不具合は次のアカウントのDMもしくはLINEオープンチャットにてお知らせください。<br>"<a href="https://twitter.com/urate_tokyo" rel="noopener noreferrer" target="_blank">メイン管理者Xアカウント"</a>
+            </address>-->
+        </header>
+
+        <nav id="line-selector" class="line-selector"></nav>
+
+        <section id="delay-status" class="delay-status-section" style="display: none;">
+            <!--<div id="ikegami-delay" class="delay-info"></div>
+            <div id="tamagawa-delay" class="delay-info"></div>-->
+            <div id="current-line-train-info" class="current-line-info">
+          </div>
+        </section>
+
+        <main id="main-map" class="main-map"></main>
+
+        <div id="log" class="debug-log"></div>
+
+    </div>
+
+    <script src="script.js"></script>
+</html>
